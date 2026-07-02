@@ -111,7 +111,7 @@ export default function HeroAnimation2() {
     <section className="heroTow">
       <canvas ref={canvasRef} />
       <div className="hero-content2" ref={contentRef}>
-        <p className="hero-eyebrow2">SWISS CRAFTED</p>
+        <p className="hero-eyebrow2">SWISS CRAFTED.</p>
         <h1>Every Second,<br />
             Engineered to <br /><span className="gold-text">Perfection</span>.</h1>
         <p className="hero-sub"> Experience uncompromising craftsmanship where <br />timeless mechanics meet modern luxury.</p>
