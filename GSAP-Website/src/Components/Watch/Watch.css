@@ -1,0 +1,541 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@200;300;400;500;600;700&display=swap');
+
+:root {
+  --color-bg-dark: #060608;
+  --color-text-primary: #ffffff;
+  --color-text-secondary: rgba(255, 255, 255, 0.45);
+  --color-accent-gold: #d4af37;
+  --font-luxury: 'Outfit', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --glass-bg: rgba(10, 10, 13, 0.42);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.05);
+  --glow-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+}
+
+/* =========================================
+CINEMATIC PHOTO STUDIO BACKGROUND LAYERS
+========================================= */
+
+.luxury-scene-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: #050505;
+}
+
+.luxury-bg-base {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background: radial-gradient(circle at 50% 50%, #15171a 0%, #0b0b0d 60%, #050505 100%);
+}
+
+.luxury-bg-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 75vw;
+  height: 75vh;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(37, 40, 45, 0.42) 0%, rgba(27, 29, 33, 0.12) 45%, rgba(5, 5, 5, 0) 70%);
+  filter: blur(50px);
+  opacity: 0.45;
+  pointer-events: none;
+  z-index: 2;
+  transform-origin: center center;
+}
+
+.luxury-bg-sweep {
+  position: absolute;
+  top: 0;
+  width: 80vw;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.02) 50%, rgba(255, 255, 255, 0) 100%);
+  transform: skewX(-20deg);
+  pointer-events: none;
+  opacity: 0.12;
+  filter: blur(40px);
+  z-index: 2;
+}
+
+.luxury-grain-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 4; /* Blends over the WebGL Canvas at index 3 */
+  opacity: 0.022;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+.luxury-watch-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  box-sizing: border-box;
+  z-index: 100;
+  pointer-events: none;
+}
+
+/* 1. Watermark Header */
+.luxury-brand-header {
+  position: absolute;
+  top: 45px;
+  left: 55px;
+  display: flex;
+  flex-direction: column;
+  color: var(--color-text-primary);
+  opacity: 0.6;
+  z-index: 10;
+  transition: opacity 1s ease;
+}
+
+.brand-subtitle {
+  font-family: var(--font-body);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 4px;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+}
+
+.brand-name {
+  font-family: var(--font-luxury);
+  font-size: 34px;
+  font-weight: 200;
+  letter-spacing: 14px;
+  margin: 4px 0 0 0;
+  text-transform: uppercase;
+}
+
+/* 2. Soft Ambient Vignette Overlay */
+.luxury-vignette-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(0, 0, 0, 0) 30%, rgba(4, 4, 6, 0.95) 100%);
+  opacity: 0;
+  z-index: 1;
+  pointer-events: none;
+  transition: opacity 2s ease;
+}
+
+/* 3. Explore Button */
+.explore-button-container {
+  position: absolute;
+  bottom: 8vh;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 15;
+}
+
+.explore-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--color-text-primary);
+  padding: 15px 30px;
+  font-family: var(--font-luxury);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 3px;
+  cursor: pointer;
+  border-radius: 4px;
+  pointer-events: auto;
+  position: relative;
+  transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.explore-btn:hover {
+  border-color: var(--color-text-primary);
+  letter-spacing: 4px;
+  background: rgba(255, 255, 255, 0.03);
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.05);
+}
+
+.explore-btn-line {
+  display: block;
+  width: 12px;
+  height: 1px;
+  background: var(--color-text-primary);
+  margin: 8px auto 0 auto;
+  transition: width 0.3s ease;
+}
+
+.explore-btn:hover .explore-btn-line {
+  width: 24px;
+}
+
+/* 4. Labels Overlay (Elegant Floating Glassmorphic Cards) */
+.labels-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.watch-label {
+  position: absolute;
+  width: 240px;
+  padding: 20px 24px;
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.12); /* Soft 12% white border */
+  border-radius: 6px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  z-index: 10;
+  pointer-events: auto;
+  transition: border-color 0.4s ease, background-color 0.4s ease;
+}
+
+.watch-label:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* Symmetrical positions around the watch centered visually at left: 28vw, top: 50vh */
+.label-sapphire {
+  left: 28vw;
+  top: 17vh;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  align-items: center;
+}
+
+.label-steel {
+  left: 5vw;
+  top: 50vh;
+  transform: translate(0, -50%);
+  text-align: left;
+  align-items: flex-start;
+}
+
+.label-movement {
+  left: 45vw;
+  top: 50vh;
+  transform: translate(0, -50%);
+  text-align: left;
+  align-items: flex-start;
+}
+
+.label-strap {
+  left: 28vw;
+  top: 80vh;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  align-items: center;
+}
+
+.label-title {
+  font-family: var(--font-luxury);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  color: var(--color-text-primary);
+  margin: 0 0 8px 0;
+  text-transform: uppercase;
+}
+
+.label-desc {
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+/* 5. Product Specification Panel */
+.product-panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 440px;
+  height: 100vh;
+  background: var(--glass-bg);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-left: var(--glass-border);
+  box-shadow: -15px 0 45px rgba(0, 0, 0, 0.7);
+  box-sizing: border-box;
+  padding: 55px 45px;
+  display: flex;
+  flex-direction: column;
+  z-index: 200;
+  pointer-events: none;
+}
+
+.panel-close-btn {
+  background: transparent;
+  border: none;
+  color: var(--color-text-secondary);
+  font-family: var(--font-luxury);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 35px;
+  pointer-events: auto;
+  align-self: flex-start;
+  transition: color 0.3s ease;
+}
+
+.panel-close-btn:hover {
+  color: var(--color-text-primary);
+}
+
+.panel-close-btn .close-icon {
+  font-size: 12px;
+  font-weight: 300;
+}
+
+.panel-scroll-content {
+  overflow-y: auto;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-right: 5px;
+}
+
+/* Clean luxury scrollbar styling */
+.panel-scroll-content::-webkit-scrollbar {
+  width: 3px;
+}
+
+.panel-scroll-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.panel-scroll-content::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+}
+
+.panel-scroll-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.collection-tag {
+  font-family: var(--font-body);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: var(--color-accent-gold);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.watch-model-name {
+  font-family: var(--font-luxury);
+  font-size: 28px;
+  font-weight: 300;
+  letter-spacing: 4px;
+  color: var(--color-text-primary);
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.watch-price {
+  font-family: var(--font-luxury);
+  font-size: 20px;
+  font-weight: 300;
+  color: var(--color-text-primary);
+  margin: 8px 0 0 0;
+}
+
+.panel-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 25px 0;
+}
+
+.watch-panel-desc {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0 0 35px 0;
+}
+
+.specs-section-title {
+  font-family: var(--font-luxury);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: var(--color-text-primary);
+  margin: 0 0 15px 0;
+  text-transform: uppercase;
+}
+
+.specs-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 45px;
+}
+
+.spec-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+  padding-bottom: 8px;
+}
+
+.spec-label {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 300;
+  color: var(--color-text-secondary);
+}
+
+.spec-value {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.panel-actions {
+  display: flex;
+  gap: 15px;
+  margin-top: auto;
+  padding-top: 20px;
+}
+
+.btn-primary {
+  flex: 1;
+  background: var(--color-text-primary);
+  border: 1px solid var(--color-text-primary);
+  color: #000000;
+  padding: 16px 0;
+  font-family: var(--font-luxury);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border-radius: 4px;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background: transparent;
+  color: var(--color-text-primary);
+}
+
+.btn-secondary {
+  flex: 1;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--color-text-primary);
+  padding: 16px 0;
+  font-family: var(--font-luxury);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border-radius: 4px;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  border-color: var(--color-text-primary);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* =========================================
+RESPONSIVENESS AND TABLET BREAKPOINTS
+========================================= */
+
+@media (max-width: 1024px) {
+  .watch-label {
+    width: 200px;
+    padding: 16px 20px;
+  }
+  
+  .label-sapphire { left: 28vw; top: 15vh; }
+  .label-steel { left: 3vw; top: 50vh; }
+  .label-movement { left: 45vw; top: 50vh; }
+  .label-strap { left: 28vw; top: 82vh; }
+  
+  .product-panel {
+    width: 380px;
+    padding: 40px 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .luxury-brand-header {
+    top: 30px;
+    left: 30px;
+  }
+  
+  .brand-name {
+    font-size: 26px;
+    letter-spacing: 10px;
+  }
+  
+  /* Hide labels and connector lines on smaller devices to keep scene clear */
+  .labels-container {
+    display: none;
+  }
+  
+  /* Specification panel slides up from bottom on mobile */
+  .product-panel {
+    top: auto;
+    bottom: 0;
+    right: 0;
+    width: 100vw;
+    height: 52vh;
+    border-left: none;
+    border-top: var(--glass-border);
+    transform: translateY(100%); /* Changed in GSAP */
+    padding: 30px 25px;
+    box-shadow: 0 -15px 35px rgba(0, 0, 0, 0.6);
+  }
+  
+  .panel-close-btn {
+    margin-bottom: 20px;
+  }
+  
+  .watch-model-name {
+    font-size: 22px;
+  }
+  
+  .specs-grid {
+    margin-bottom: 25px;
+    gap: 8px;
+  }
+  
+  .watch-panel-desc {
+    margin-bottom: 20px;
+  }
+}

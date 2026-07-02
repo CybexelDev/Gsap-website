@@ -1,0 +1,89 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+.heroTow {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: #000;
+  overflow: hidden;
+}
+
+.heroTow canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Hero content — left aligned */
+.hero-content2 {
+  position: absolute;
+  top: 50%;
+  left: 5vw;
+  transform: translateY(-50%);
+  z-index: 10;
+  max-width: 560px;
+  pointer-events: none;
+  opacity: 1;
+  /* no CSS transition — JS drives opacity directly, frame-accurate */
+}
+
+.hero-eyebrow2 {
+  font-family:Arial, Helvetica, sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+  margin-bottom: 18px;
+}
+
+.hero-content2 h1 {
+  font-size: 45px;
+  font-weight: 600;
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  margin-bottom: 22px;
+  font-family: -apple-system, "SF Pro Display", "Inter", system-ui, sans-serif;
+}
+
+.hero-sub {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.5;
+  font-family: -apple-system, "SF Pro Text", "Inter", system-ui, sans-serif;
+}
+
+.hero-content2 h1 .gold-text {
+  background: linear-gradient(135deg, #D4AF37 0%, #F5E6A8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
+}
+
+.hero-button2{
+  margin-top: 28px;
+  padding: 12px 28px;
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: #ffffff;
+  background: rgba(37, 37, 37, 0.965);
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  border: 1px solid rgba(190, 212, 48, 0.532);
+  font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif
+}
+
+.hero-button2 :hover{
+  background: rgba(51, 51, 51, 0.15);
+}

@@ -1,0 +1,234 @@
+/* ---------- About — Blueprint Annotation (flex-based, robust) ---------- */
+
+.about {
+  position: relative;
+  min-height: 100vh;
+  background: #050505;
+  color: #ffffff;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  padding: 60px 4vw;
+}
+
+.about-eyebrow {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 14px;
+}
+
+.about-title {
+  font-size: clamp(2.8rem, 6vw, 4rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  text-align: center;
+  margin: 0 0 120px;
+}
+
+/* ---------- Stage: 3-column flex row ---------- */
+.about-stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  width: 100%;
+  max-width: 1400px;
+}
+
+.annotation-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 480px;
+  width: 380px;
+  flex-shrink: 0;
+}
+
+.about-image-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 280px;
+  flex-shrink: 0;
+  z-index: 2;
+}
+
+.about-image img {
+  width: 460px;
+  border-radius: 30px;
+  filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.6));
+}
+
+/* ---------- Annotation row: card + line + dot, aligned via flex ---------- */
+.annotation-row {
+  display: flex;
+  align-items: center;
+  height: 0; /* rows are spaced by justify-content: space-between on the column */
+}
+
+.row-left {
+  justify-content: flex-end;
+}
+
+.row-right {
+  justify-content: flex-start;
+}
+
+.leader-line {
+  height: 1.5px;
+  width: 56px;
+  flex-shrink: 0;
+  background: linear-gradient(
+    to var(--line-dir, right),
+    rgba(255, 255, 255, 0.05),
+    rgba(255, 255, 255, 0.6)
+  );
+  transform-origin: var(--origin, left);
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.3));
+}
+
+.row-left .leader-line {
+  --line-dir: left;
+  --origin: right;
+}
+
+.row-right .leader-line {
+  --line-dir: right;
+  --origin: left;
+}
+
+.leader-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ffffff;
+  flex-shrink: 0;
+  box-shadow: 0 0 12px 3px rgba(255, 255, 255, 0.5);
+  animation: dot-pulse 2.2s ease-out infinite;
+}
+
+@keyframes dot-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.45), 0 0 12px 3px rgba(255, 255, 255, 0.5); }
+  70% { box-shadow: 0 0 0 10px rgba(255, 255, 255, 0), 0 0 12px 3px rgba(255, 255, 255, 0.5); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0), 0 0 12px 3px rgba(255, 255, 255, 0.5); }
+}
+
+/* ---------- Glass card ---------- */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 18px;
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 16px 40px rgba(0, 0, 0, 0.5);
+}
+
+.annotation-card {
+  width: 300px;
+  padding: 26px 28px;
+  flex-shrink: 0;
+  transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+.annotation-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.annotation-index {
+  display: inline-block;
+  font-family: "JetBrains Mono", "Courier New", monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  padding: 3px 10px;
+  margin-bottom: 12px;
+}
+
+.annotation-card h3 {
+  margin: 0 0 8px;
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+}
+
+.annotation-card p {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* ---------- Stats ---------- */
+.stats {
+  display: flex;
+  justify-content: center;
+  gap: 100px;
+  margin-top: 190px;
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat h2 {
+  font-size: clamp(2.4rem, 4vw, 3.2rem);
+  font-weight: 600;
+  margin: 0 0 4px;
+  font-family: "JetBrains Mono", "Courier New", monospace;
+}
+
+.stat p {
+  margin: 0;
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1100px) {
+  .about-stage {
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .annotation-col {
+    height: auto;
+    width: 100%;
+    max-width: 480px;
+    gap: 20px;
+  }
+
+  .annotation-row,
+  .row-left,
+  .row-right {
+    justify-content: flex-start;
+  }
+
+  .leader-line,
+  .leader-dot {
+    display: none;
+  }
+
+  .annotation-card {
+    width: 100%;
+  }
+
+  .stats {
+    gap: 40px;
+    flex-wrap: wrap;
+    margin-top: 50px;
+  }
+}
